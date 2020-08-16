@@ -7,7 +7,7 @@
 
 ## Hello.js 코드
 
-```
+```xml
 import React from 'react';
 
 function Hello() {
@@ -27,7 +27,7 @@ export default Hello;
 
 ## 꼭 감싸져야하는 태그
 
-```
+```XML
 import React from 'react';
 import Hello from './Hello';
 
