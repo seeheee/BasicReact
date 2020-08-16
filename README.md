@@ -12,7 +12,6 @@
 import React from 'react';
 
 function Hello() {
-    //HTML처럼 생겼지만 자바스크립트로써 XML로 작성하면 -> JSX -> 자바스크립트로 변환
     return <div>안녕하세요</div>
 }
 
@@ -26,4 +25,4 @@ export default Hello;
 
 HTML처럼 생겼지만 XML로 작성 시 JSX -> javascript로 변환
 
-Hello 컴포넌트를 내보내겠다는
+Hello 컴포넌트를 내보내서 다른 컴포넌트에서 사용가능
