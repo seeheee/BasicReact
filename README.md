@@ -1,5 +1,6 @@
-# BasicReact
-생활코딩 리엑트 강의와 react 튜토리얼 따라하기
+# 큰 나무보기
+react 튜토리얼 따라하기
+
 
 ## react 파일 생성방법
 1. npx create-react-app begin-react(파일 이름)
@@ -7,7 +8,7 @@
 
 ## Hello.js 코드
 
-```xml
+```javascript
 import React from 'react';
 
 function Hello() {
@@ -24,7 +25,7 @@ export default Hello;
 
 ## 꼭 감싸져야하는 태그
 
-```XML
+```javascript
 import React from 'react';
 import Hello from './Hello';
 
@@ -40,4 +41,66 @@ export default App;
 
 오류발생 -> <>, </> 로 감싸기(Fragment)
 
-✔️ JSX 내부에 자바스크립트 변수를 보여줘야 할 때에는 {} 으로 감쌈
+## style과 className
+
+```javascript
+import React from 'react';
+import Hello from './Hello.js';
+import './App.css';
+
+
+function App() {
+  //자바스크립트 변수 생성
+  const name = 'react';
+  const style = {
+    backgroundColor : 'black',
+    color: 'aqua',
+    fonSize:24,
+    padding: '1rem'
+  }
+  return (
+    <div>
+    <Hello></Hello>
+    <div style={style}>{name}</div>
+    <div className="box"></div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+✔️ JSX 내부에 자바스크립트 변수를 보여줘야 할 때에는 {} 으로 감쌈<br>
+✔️ css을 사용할때는 import해서 불러와주고 **className**을 사용하여 **css name**을 가지고 옴<br>
+
+## props와 state
+props 는 properties 의 줄임말
+
+#### props는 언제 사용할까 &#10068;
+어떤 값을 컴포넌트에서 전달해줘야 할 때
+값을 객체 형태로 전달되며 파라미터를 통해 조회
+
+## &#10122; props을 사용하는 방법
+
+```javascript
+import React from 'react';
+
+function Hello(props) {
+  return <div style={{ color: props.color }}>안녕하세요 {props.name}</div>
+}
+
+export default Hello;
+```
+## &#10123; 비구조화 할당 = 구조 분해
+
+```javascript
+import React from 'react';
+
+function Hello({ color, name }) {
+  return <div style={{ color }}>안녕하세요 {name}</div>
+}
+
+export default Hello;
+```
+✔️파라미터로 객체를 받아오며 props을 생략하고 작성가능 
+
