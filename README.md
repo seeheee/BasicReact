@@ -104,3 +104,44 @@ export default Hello;
 ```
 ✔️파라미터로 객체를 받아오며 props을 생략하고 작성가능 
 
+## 컴포넌트 태그 사이에 넣은 값을 조회하고 싶을때 props.children 사용
+
+```javascript
+import React from 'react';
+
+function Wrapper({ children }) {
+  const style = {
+    border: '2px solid black',
+    padding: '16px',
+  };
+  return (
+    <div style={style}>
+      {children}
+    </div>
+  )
+}
+
+export default Wrapper;
+```
+✔️ **props.children을 사용하는 자리는 상위 컴포넌트 안에서 사용해야함. 그래야 Wrapper컴포넌트 안에 있는 다른 컴포넌트들과 내용들이 보임**
+
+## 조건부 렌더링
+
+&#9996; 특정 조건에 따라 다른 결과물을 렌더링 하는 것을 의미
+
+```javascript
+import React from 'react';
+
+function Hello({ color, name, isSpecial }) {
+  return (
+    <div style={{ color }}>
+      { isSpecial ? <b>*</b> : null }
+      안녕하세요 {name}
+    </div>
+  );
+}
+```
+
+```
+
+```
