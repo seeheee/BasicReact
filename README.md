@@ -142,6 +142,25 @@ function Hello({ color, name, isSpecial }) {
 }
 ```
 
-```
+&#9996; true이므로 <b>*</b>이것이 나옴
+```javascript
+function App() {
+  //자바스크립트 객체 생성
+  const name = 'react';
+  const style = {
+    backgroundColor : 'black',
+    color: 'aqua',
+    fonSize:24,
+    padding: '1rem'
+  }
+  return (
+    <Wrapper>
+    {/* Hello 컴포넌트에게 name 값을 전달해주고 싶다  */}
+    <Hello name="kwon se hee" color='blue' isSpecial={true}></Hello>
+    <div style={style}>{name}</div>
+    <div className="box"></div>
+    </Wrapper>
+  );
+}
 
 ```
