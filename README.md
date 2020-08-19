@@ -222,10 +222,11 @@ function InputSample() {
 export default InputSample;
 ```
 
-✔️이벤트 객체 e를 파라미터로 받아와서 e.target은 input DOM을 가리킴
+✔️ 이벤트 객체 e를 파라미터로 받아와서 e.target은 input DOM을 가리킴
 
-✔️value 값을 설정해줘야 상태가 바뀌었을 때 input값의 내용도 업데이트 됨
-
-
+✔️ value 값을 설정해줘야 상태가 바뀌었을 때 input값의 내용도 업데이트 됨
 
 
+### 여러개의 input 상태 관리하기
+
+### &#128161; 리액트에서 객체를 업데이트하게 될 때에는 기존 객체를 직접 수정하면 안되고, 새로운 객체를 만들어서, 새 객체에 변화를 주어야 함 &#128161;
