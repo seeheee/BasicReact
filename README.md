@@ -171,6 +171,8 @@ function App() {
 함수형 컴포넌트에서 상태를 관리하는 방법은 &#10068;
 Hooks 사용
 
+상태란 컴포넌트에서 동적인 값을 의미
+
 useState는 Hooks의 하나의 종류
 
 엘리먼트에 이벤트를 설정하는 방법은 &#10068;
@@ -183,3 +185,47 @@ onClick={onIncrease()}
 ```
 
 이벤트를 설정할때에는 함수타입의 값을 넣어주어야 한다
+
+```
+const [number, setNumber] = useState(0);
+```
+
+첫번째 원소는 현재 상태, 두번째 원소는 Setter 함수
+
+### &#128293; input 상태 관리하기 &#128293;
+
+```javascript
+import React, { useState } from 'react';
+
+function InputSample() {
+    const [text, setText] = useState(' ');
+    
+    const onChange = (e) => {
+        setText(e.target.value);
+    };
+
+    const onRest = () => {
+        setText('  ');
+    };
+
+    return(
+        <div>
+            <input onChange={onChange} value={text}></input>
+            <button onClick={onRest}>초기화</button>
+            <div>
+                <b>값: {text}</b>
+            </div>
+        </div>
+    );
+}
+
+export default InputSample;
+```
+
+✔️이벤트 객체 e를 파라미터로 받아와서 e.target은 input DOM을 가리킴
+
+✔️value 값을 설정해줘야 상태가 바뀌었을 때 input값의 내용도 업데이트 됨
+
+
+
+
