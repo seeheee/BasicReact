@@ -309,3 +309,57 @@ ref={nameInput}
 
 ### 🙆 배열에 렌더링하기 🙆
 
+```javascript
+function UserUse({user}) {
+    return(
+        <div>
+            <b>{user.name} ({user.email})</b>
+        </div>
+    );
+}
+
+function UserList() {
+    const user = [
+        {
+            id:1,
+            name: 'kwon se hee',
+            email: 'ksh2001ksh@naver.com'
+        },
+        {
+            id:2,
+            name: 'kwon dong dong',
+            email: 'kth1203kth@naver.com'
+        },
+        {
+            id:3,
+            name:'test',
+            email: 'test@naver.com'
+        }
+    ];
+    return(
+        <div>
+        <UserUse user = {user[0]}></UserUse>
+        <UserUse user = {user[1]}></UserUse>
+        <UserUse user = {user[2]}></UserUse>
+        </div>
+    );
+}
+```
+
+✔️ 이 방법은 동적인 배열을 렌더링 하지 못함 ❗
+
+### 동적인 배열 렌더링하는 방법 = 자바스크립트 배열의 내장함수 map() 을 사용
+
+```javascript
+  return (
+    <div>
+      {users.map(user => (
+        <User user={user} />
+      ))}
+    </div>
+  );
+```
+
+✔️ 배열을 렌더링 할 때에는 key라는 props를 설정해야함<br>
+
+✔️ 
