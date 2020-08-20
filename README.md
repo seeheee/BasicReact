@@ -230,3 +230,69 @@ export default InputSample;
 ### 여러개의 input 상태 관리하기
 
 ### &#128161; 리액트에서 객체를 업데이트하게 될 때에는 기존 객체를 직접 수정하면 안되고, 새로운 객체를 만들어서, 새 객체에 변화를 주어야 함 &#128161;
+
+
+```javascript
+inputs[name] = value;
+```
+&#10060; 이런 식으로 직접 객체를 수정하는 것 안됨<br>
+👀 기존 상태를 직접 수정하게 되면 리엑트 컴포넌트는 상태가 업데이트 되었다는 것을 인지하지 못하여 값을 바꿔도 리렌더링이 되지 않음 
+
+```javascript
+setInputs({
+  ...inputs,
+  [name]: value
+});
+```
+✔️ 새로운 객체를 만들어서 새로운 객체에 변화를 줘야 함
+
+```javascript
+function InputSample() {
+    const [inputs, setInputs] = useState({
+        //문자열이 아니라 객채 형태로 초기화
+        pa: ' ',
+        nickname: ' '
+    });
+
+    const { pa, nickname } = inputs;
+    
+    const onChange = (e) => {
+        //이벤트 객체가 value와 name을 가리킴
+        const {value, name} = e.target;
+
+        setInputs({
+            ...inputs, // spread 사용하여 기존의 input 객체를 복사한 뒤
+            [name]: value //name키를 가진 값을 value로 설정
+        });
+    };
+
+    const onRest = () => {
+        setInputs({
+            pa: ' ',
+            nickname: ' ',
+        });
+    };
+
+    return(
+        <div>
+            <input name="pa" placeholder="이름" onChange={onChange} value={pa} ></input>
+            <input name="nickname" placeholder="닉네임" onChange={onChange} value={nickname} ></input>
+            <button onClick={onRest}>초기화</button>
+            <div>
+                <b>값 </b>
+                {pa} ({nickname})
+            </div>
+        </div>
+    );
+}
+```
+
+### useRef 로 특정 DOM 선택하기
+
+&#10102; useRef() 를 사용하여 Ref 객체 생성
+
+```
+const nameInput = useRef();
+```
+
+&#10103;
