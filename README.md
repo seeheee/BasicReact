@@ -359,9 +359,122 @@ function UserList() {
     </div>
   );
 ```
+##### 🚀 map() 함수를 사용하여 일반 데이터 배열을 리액트 엘리먼트로 이루어지 배열로 변환
+
+##### map() 함수는 모든 배열의 값에 Function을 실행하는 Method
+
+👀 array.map(callbackFunction(currenValue, index, array), thisArg)
+
+currenValue : 현재 값
+index : 배열 내 현재 값의 인덱스
+
+
+![image](https://user-images.githubusercontent.com/53335160/90859777-ca470000-e3c3-11ea-89f0-e132060eaa8c.png)
 
 ✔️ 배열을 렌더링 할 때에는 key라는 props를 설정해야함<br>
 
 ✔️ key값은 고유값으로 설정 ❗ (대부분 ID에 해당)
 
-🚀 
+✔️ 만약 key값으로 설정할 경우가 없다면 콜백함수 두번째 파라미터에 index를 key로 사용
+
+```javascript
+  return (
+    <div>
+      {users.map((user, index) => (
+        <User user={user} key={index}/>
+      ))}
+    </div>
+  );
+```
+
+### 🔥 useRef 로 컴포넌트 안의 변수 만들기 🔥
+
+```javascript
+//useRef 객체 생성
+const nextId = useRef(4);
+
+
+const onCreate = () =>{
+  nextId.current += 1;
+};
+```
+
+✔️ nextId.current의 초기값은 useRef의 파라미터의 값 ➜ 수정, 조회시 current 값을 이용하면 됨 ➜ userRef를 사용하면 조회 및 수정 할 수 있는 변수 관리 용이
+
+### 🔥 CREATE 🔥
+
+➊ useState 를 사용하여 컴포넌트의 상태로서 관리
+
+```javascript
+const [inputs, setInputs] = useState({
+    username: '',
+    email: ''
+  });
+```
+
+```javascript
+ const [users, setUsers] = useState([
+    {
+      id: 1,
+      username: 'velopert',
+      email: 'public.velopert@gmail.com'
+    },
+    {
+      id: 2,
+      username: 'tester',
+      email: 'tester@example.com'
+    },
+    {
+      id: 3,
+      username: 'liz',
+      email: 'liz@example.com'
+    }
+  ]);
+```
+
+➋ onChange와 onCreate 함수 작성
+
+```javascript
+ const onChange = e => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value
+    });
+  };
+```
+
+```javascript
+const onCreate = () => {
+    const user = {
+      id: nextId.current,
+      username,
+      email
+    };
+    setUsers([...users, user]);
+
+    setInputs({
+      username: '',
+      email: ''
+    });
+    nextId.current += 1;
+  };
+```
+
+➌ 배열에 등록할 때 불변성 지켜주기
+
+배열의 push , splice, sort 사용 ❌
+
+👀 spread , concat 사용
+
+spread 사용
+
+```javascript
+setUsers([...users, user]);
+```
+<br>
+concat 사용
+
+```javascript
+setUsers(users.concat(user));
+```
