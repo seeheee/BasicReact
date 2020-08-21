@@ -362,4 +362,6 @@ function UserList() {
 
 ✔️ 배열을 렌더링 할 때에는 key라는 props를 설정해야함<br>
 
-✔️ 
+✔️ key값은 고유값으로 설정 ❗ (대부분 ID에 해당)
+
+🚀 
