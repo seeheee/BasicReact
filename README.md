@@ -478,3 +478,46 @@ concat 사용
 ```javascript
 setUsers(users.concat(user));
 ```
+
+### 🔥 DLETE 🔥
+
+➊ onRemove함수에 id값 파라미터로 주기
+
+```javascript
+<button onClick={() => onRemove(user.id)}>삭제</button>
+```
+
+➋ onRemove함수 filter함수 사용하여 작성
+
+```javascript
+const onRemove  = (id) =>{
+  setUsers(users.filter(user => user.id != id));
+};
+```
+
+### 🔥 UPDATE 🔥
+
+undefined 의 선행조건은 null이다 ! 즉 undefined는 null로 체크
+
+
+### 🔥 useEffect를 사용하여 마운트/언마운트/업데이트시 할 작업 설정 🔥
+
+👀 마운트(처음 나타날때)
+
+useEffect의 첫번째 파라미터 ➜ 함수 , 두번째 파라미터 ➜ 의존값이 들어있는 배열 (deps)
+
+👀 언마운트(사라질 때)
+
+useEffect에서 함수를 반환 할 시 ➜ cleanup 함수 (deps가 비어있을 시 실행)
+
+👀 deps 에 특정 값 넣기
+
+처음 마운트 될 때, 지정한 값이 바뀔때, 값이 바뀌기 전, 언마운트 시 모두 호출<br>
+
+seEffect 안에서 사용하는 상태나, props 가 있다면, useEffect 의 deps 에 꼭 넣어주어야 함 ❗ 
+
+
+### 🔥 useEffect 보충 🔥
+
+
+### 🔥 useMemo 를 사용하여 연산한 값 재사용하기 🔥
