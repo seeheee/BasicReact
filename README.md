@@ -521,3 +521,224 @@ seEffect 안에서 사용하는 상태나, props 가 있다면, useEffect 의 de
 
 
 ### 🔥 useMemo 를 사용하여 연산한 값 재사용하기 🔥
+
+👀 Memo란 memoized를 의미하며 이전에 계산한 값을 재사용한다는 의미를 가지고 있다
+
+💜 countActiveUsers 라는 함수를 만들어서, active 값이 true 인 사용자의 수를 세어서 화면에 렌더링하기 
+
+```javascript
+function countActiveUsers(users){
+  console.log('활성 사용자 수를 세는 중...');
+  return users.filter(user=>user.active).length;
+}
+
+const count = countActiveUsers(users);
+
+  return (
+    <div>
+    <CreateUser username={name} email={email} onChange={onChange} onCreate={onCreate}></CreateUser>
+    <div>활성 사용자 수 : {count}</div>
+    </div>
+  );
+```
+
+✔️ users에 변화가 있을 뿐 아니라 input값이 바뀔 때도 컴포넌트가 리렌더링된다(***함수 컴포넌트는 매번 함수가 새로 그려지며 실행되기 때문에 한번만 실행되면 되는 함수도 계속 호출되는 문제 발생***) ➜ Hook함수의 하나인 useMemo 사용
+
+useMemo(callback, [변경되는값]);
+
+첫번째 파라미터 : 연산을 정의하는 함수<br>
+두번째 파라미터 : deps 함수
+
+ 
+✔️ 변경되는 값에 변경이 없다면 함수를 한번만 실행한후 값을 재사용한다 ❗
+
+### useMemo()와 useRef(), useCallback()의 차이점
+👉 useMemo()는 복잡한 함수의 'return값'을 기억하는 경우<br>
+👉 useRef()는 DOM객체처럼 특정 값을 기억하는 경우<br>
+👉 useCallback()는 함수의 reference을 기억하는 경우<br>
+
+
+### 🔥 usecallback을 사용하여 함수 재사용하기 🔥
+
+👀 usecallback은 특정함수를 만들지 않고 재사용하고 싶을 경우 사용
+
+재사용을 왜 해야할까 ❓<br>
+
+컴포넌트에서 props가 바뀌지 않았으면 Virtual DOM에 새로 렌더링하지 않고 컴포넌트의 결과물을 재사용하는 최적화에 필요
+
+함수 안에서 사용하는 상태, props가 있다면 deps 배열안에 포함시켜야 함 ❗ 
+
+### 🔥 React.memo 를 사용한 컴포넌트 리렌더링 방지 🔥
+
+👀 React.memo을 사용하면 컴포넌트의 리렌더링이 필요한 상태에서만 리렌더링 할 수 있음 ❗ 
+
+👀 렌더링 최적화 하지 않을 컴포넌트에 React.memo 를 사용하는것은, 불필요한 props 비교만 하는 것이기 때문에 실제로 렌더링을 방지할수있는 상황이 있는 경우에만 사용 ❗ 
+
+```javascript
+export default React.memo(UserList);
+```
+✔️ 내보낼때 React.memo로 감싸줌
+
+```javascript
+const onRemove  = useCallback((id) =>{
+  setUsers(users => users.filter(user => user.id != id));
+}, []);
+
+ setUsers(users => users.concat(user));
+```
+✔️ 함수형 업데이트를 사용하여 deps에 users를 넣지 않는다<br>
+✔️ setUser의 파라미터로 users을 넘겨줌
+
+### 🔥 useReducer 를 사용하여 상태 업데이트 로직 분리 🔥
+
+💜 상태를 관리하는 2가지 방법
+1. usestate
+2. useReducer
+
+useReducer을 사용하는 이유는 ❓
+컴포넌트 상태 업데이트 로직을 컴포넌트에서 분리 할 수 있음 
+
+💜 useReducer vs useState
+useReducer : 컴포넌트에서 관리하는 값이 여러개
+useState : 컴포넌트에서 관리하는 값이 하나고 단순한 숫자, 문자열일 경우 이용
+
+👀 const [state, dispatch] = useReducer(reducer, initialState);
+
+state : 우리가 앞으로 컴포넌트에서 사용 할 수 있는 상태
+dispatch : 액션을 발생시키는 함수
+reducer : reducer 함수
+initialState : 초기 상태
+
+```javascript
+function reducer(state, action){
+    switch(action.type){
+        case 'INCREMENT':
+            return state + 1;
+        case 'DECREMENT':
+            return state -1;
+        default:
+            return state;
+    }
+}
+```
+✔️ reducer함수는 현재 상태와 액션객체를 파라미터로 받아 새로운 state를 반환
+
+##### 👀 APP.js에서 구현
+
+```javascript
+const initialState = {
+    inputs: {
+        name: ' ',
+        email: ' '
+    },
+    users : [
+        {
+            id:1,
+            name: 'kwon se hee',
+            email: 'ksh2001ksh@naver.com',
+            active: true
+        },
+        {
+            id:2,
+            name: 'kwon dong dong',
+            email: 'kth1203kth@naver.com',
+            active: false
+        },
+        {
+            id:3,
+            name:'test',
+            email: 'test@naver.com',
+            active: false
+        }
+    ]
+};
+```
+✔️ const [state, dispatch] = useReducer(reducer, initialState); 쓸 초기값을 설정
+
+```javascript
+function reducer(state, action){
+    switch(action.type){
+        case 'CHANGE_INPUT':
+            return{
+                ...state,
+                inputs:{
+                    ...state.inputs,
+                    [action.name]: action.value
+                }
+            };
+            case 'CREATE_USER':
+                return{
+                    inputs: initialState.inputs,
+                    users: state.users.concat(action.user)
+                };
+            case 'REMOVE_USER':
+                return{
+                    ...state,
+                    users: state.users.filter(user => user.id != action.id)
+                };
+            case 'TOGGLE_USER':
+                return{
+                    ...state,
+                    users: state.users.map(user => user.id === action.id ? {...user ,active : !user.active} : user)
+                }
+        default:
+            return state;
+    }
+}
+```
+
+✔️ 분리된 업데이트 로직을 작성
+
+```javascript
+function App2() {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const nextId = useRef(4);
+    const {users} = state;
+    const {name, email} = state.inputs;
+
+    const onChange = useCallback((e) => {
+        const {name, value} = e.target;
+        dispatch({
+            type: 'CHANGE_INPUT',
+            name,
+            value
+        });
+    }, []);
+
+    const onCreate = useCallback(() => {
+        dispatch({
+            type:'CREATE_USER',
+            user: {
+                id: nextId.current,
+                name,
+                email
+            },
+        });
+        nextId.current += 1;
+    }, [name, email]);
+
+    const onRemove = useCallback((id) =>{
+        dispatch({
+            type:'REMOVE_USER',
+            id
+        });
+    }, []);
+
+    const onToggle = useCallback((id) =>{
+        dispatch({
+            type:'TOGGLE_USER',
+            id
+        });
+    }, []);
+
+    const count = useMemo(() => countActiveUsers(users), [users]);
+    return (
+        <div>
+            <CreateUser username={name} email={email} onChange={onChange} onCreate={onCreate}></CreateUser>
+            <UserList AppUser={users} onRemove={onRemove}  onToggle={onToggle}></UserList>
+    <div>활성사용자 수: {count}</div>
+        </div>
+    );
+}
+```
+✔️ action을 설정
