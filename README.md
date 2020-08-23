@@ -654,6 +654,7 @@ const initialState = {
 };
 ```
 ✔️ const [state, dispatch] = useReducer(reducer, initialState); 쓸 초기값을 설정
+<br>
 
 ```javascript
 function reducer(state, action){
@@ -688,7 +689,7 @@ function reducer(state, action){
 ```
 
 ✔️ 분리된 업데이트 로직을 작성
-
+<br>
 ```javascript
 function App2() {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -742,3 +743,5 @@ function App2() {
 }
 ```
 ✔️ action을 설정
+<br>
+
